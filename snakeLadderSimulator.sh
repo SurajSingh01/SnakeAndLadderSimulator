@@ -63,8 +63,10 @@ function playingOption()
 		else
 			if [ $(( $diceRoll + $position )) -gt $END_POSITION ]
 			then
+				echo "Unlucky, roll again"
 				position=$position
 			else
+				echo "Move forward by $diceRoll position"
 				position=$(( $position + $diceRoll ))
 			fi
 		fi
