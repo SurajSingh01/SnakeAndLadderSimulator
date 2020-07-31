@@ -7,5 +7,25 @@ position=0
 
 echo "The intial position of the player will be $position"
 
-dieRoll=$(( 1 + RANDOM % 6)) 
-echo "The number obtained is $dieRoll"
+function playingOption()
+{
+	diceRoll=$(( 1 + RANDOM % 6 ))
+	echo "The number obtained is $diceRoll"
+	option=$(( RANDOM % 3 ))
+	case "$option" in
+		1)
+			echo "No play , your postion = $position"
+			position=$position
+			;;
+		2)
+			echo "Congrats You got a ladder ! move by $diceRoll forward "
+			position=$(( $position + $diceRoll ))
+			;;
+		*)
+			echo "Ohh! you got a snake move by $diceRoll backword"
+			position=$(( $position - $diceRoll ))
+			;;
+	esac
+}
+
+playingOption
