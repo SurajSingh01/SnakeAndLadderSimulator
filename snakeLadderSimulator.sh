@@ -6,14 +6,15 @@ echo "Welcome to snake Ladder Simulator"
 position=0
 INITIAL_POSITION=0
 END_POSITION=100
-
+count=0
 
 function playingOption()
 {
 	if [ $position -lt 94 ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
-		#echo "The number obtained is $diceRoll"
+		(( count++ ))
+		echo "The number obtained is $diceRoll"
 		option=$(( RANDOM % 3 ))
 		case "$option" in
 			1)
@@ -37,7 +38,8 @@ function playingOption()
 	elif [ $position -ge 94 -a $position -le $END_POSITION ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
-		#echo "The die rolled to a $diceRoll, move forward by $diceRoll"
+		(( count++ ))
+		echo "The die rolled to a $diceRoll, move forward by $diceRoll"
 		if [ $(( $diceroll + $position )) -eq $END_POSITION ]
 		then
 			echo "You won the Game"
@@ -62,5 +64,7 @@ do
 		break
 	fi
 	playingOption
-	echo "You are at $position position"
+	echo "--------------> You are at $position position "
 done
+
+echo "It took you $count dice roll to win the game"
