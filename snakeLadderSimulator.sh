@@ -17,16 +17,16 @@ function playingOption()
 		option=$(( RANDOM % 3 ))
 		case "$option" in
 			1)
-				#No play postion
+				echo "No play, your postion is $position"
 				position=$position
 				;;
 			2)
-				#Congrats You got a ladder! now move forword
+				echo "Congrats You got a ladder! now move by $diceRoll forword"
 				position=$(( $position + $diceRoll ))
 				;;
 
  			*)
-				#Ohh! you got a snake now move  backword"
+				echo "Ohh! you got a snake now move by $diceRoll backword"
 				position=$(( $position + $diceRoll ))
 				if [ $position -le $INITIAL_POSITION ]
 				then
@@ -45,10 +45,10 @@ function playingOption()
 		else
 			if [ $(( $diceRoll + $position )) -gt $END_POSITION ]
 			then
-				#echo "Unlucky, roll again"
+				echo "Unlucky, roll again"
 				position=$position
 			else
-				#echo "Move forward by $diceRoll position"
+				echo "Move forward by $diceRoll position"
 				position=$(( $position + $diceRoll ))
 			fi
 		fi
