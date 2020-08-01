@@ -7,27 +7,26 @@ position=0
 INITIAL_POSITION=0
 END_POSITION=100
 
-echo "The intial position of the player will be $position"
 
 function playingOption()
 {
 	if [ $position -lt 94 ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
-		echo "The number obtained is $diceRoll"
+		#echo "The number obtained is $diceRoll"
 		option=$(( RANDOM % 3 ))
 		case "$option" in
 			1)
-				echo "No play , your postion is $position"
+				#No play postion
 				position=$position
 				;;
 			2)
-				echo "Congrats You got a ladder ! move by $diceRoll forward "
+				#Congrats You got a ladder! now move forword
 				position=$(( $position + $diceRoll ))
 				;;
 
  			*)
-				echo "Ohh! you got a snake move by $diceRoll backword"
+				#Ohh! you got a snake now move  backword"
 				position=$(( $position + $diceRoll ))
 				if [ $position -le $INITIAL_POSITION ]
 				then
@@ -38,7 +37,7 @@ function playingOption()
 	elif [ $position -ge 94 -a $position -le $END_POSITION ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
-		echo "The die rolled to a $diceRoll, move forward by $diceRoll"
+		#echo "The die rolled to a $diceRoll, move forward by $diceRoll"
 		if [ $(( $diceroll + $position )) -eq $END_POSITION ]
 		then
 			echo "You won the Game"
@@ -46,10 +45,10 @@ function playingOption()
 		else
 			if [ $(( $diceRoll + $position )) -gt $END_POSITION ]
 			then
-				echo "Unlucky, roll again"
+				#echo "Unlucky, roll again"
 				position=$position
 			else
-				echo "Move forward by $diceRoll position"
+				#echo "Move forward by $diceRoll position"
 				position=$(( $position + $diceRoll ))
 			fi
 		fi
