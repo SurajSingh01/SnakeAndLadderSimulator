@@ -8,8 +8,38 @@ INITIAL_POSITION=0
 END_POSITION=100
 count=0
 
+function ladderPlayAgain()
+{
+   #if [ $position -lt 94 ]
+   #then
+      diceRoll=$(( 1 + RANDOM % 6 ))
+      (( count++ ))
+      echo "The number obtained is $diceRoll"
+      option=$(( RANDOM % 3 ))
+      case "$option" in
+         1)
+            echo "No play, your postion is $position"
+            position=$position
+            ;;
+         2)
+            echo "Congrats You got a ladder! now move by $diceRoll forword"
+            position=$(( $position + $diceRoll ))
+            ;;
+
+         *)
+            echo "Ohh! you got a snake now move by $diceRoll backword"
+            position=$(( $position + $diceRoll ))
+            if [ $position -le $INITIAL_POSITION ]
+            then
+               position=0
+            fi
+            ;;
+      esac
+}
+
 function playingOption()
 {
+	#echo "Position = $position"
 	if [ $position -lt 94 ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
@@ -24,6 +54,7 @@ function playingOption()
 			2)
 				echo "Congrats You got a ladder! now move by $diceRoll forword"
 				position=$(( $position + $diceRoll ))
+				ladderPlayAgain
 				;;
 
  			*)
