@@ -3,15 +3,15 @@
 echo "Welcome to snake Ladder Simulator"
 
 #Intialinzing variable
-position=0
 INITIAL_POSITION=0
 END_POSITION=100
+position=0
 count=0
+playerOneCount=0
+playerTwoCount=0
 
 function ladderPlayAgain()
 {
-   #if [ $position -lt 94 ]
-   #then
       diceRoll=$(( 1 + RANDOM % 6 ))
       (( count++ ))
       echo "The number obtained is $diceRoll"
@@ -39,7 +39,7 @@ function ladderPlayAgain()
 
 function playingOption()
 {
-	#echo "Position = $position"
+	echo "Position = $position"
 	if [ $position -lt 94 ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
@@ -54,7 +54,7 @@ function playingOption()
 			2)
 				echo "Congrats You got a ladder! now move by $diceRoll forword"
 				position=$(( $position + $diceRoll ))
-				ladderPlayAgain
+				#ladderPlayAgain
 				;;
 
  			*)
@@ -83,19 +83,49 @@ function playingOption()
 			else
 				echo "Move forward by $diceRoll position"
 				position=$(( $position + $diceRoll ))
+				echo "position = $position"
 			fi
 		fi
 	fi
 }
 
+
+# For player one
+
 while (( $position <= $END_POSITION ))
 do
 	if [ $position -eq $END_POSITION ]
 	then
+		position=0
+		count=0
 		break
 	fi
 	playingOption
-	echo "--------------> You are at $position position "
+	playerOneCount=$count
 done
 
-echo "It took you $count dice roll to win the game"
+#For PLayer Two
+
+while (( $position <= $END_POSITION ))
+do
+	if [ $position -eq $END_POSITION ]
+   then
+      position=0
+      count=0
+      break
+   fi
+	playingOption
+	playerTwoCount=$count
+done
+echo "--------------------------------------------"
+echo "It took player one $playerOneCount dice roll to win the game"
+echo "--------------------------------------------"
+echo "It took player two $playerTwoCount dice roll to win the game "
+echo "--------------------------------------------"
+
+if [ $playerOneCount -lt $playerTwoCount ]
+then
+	printf "\nPlayer One Won the Game\n"
+else
+	printf "\nPlayer Two won the Game\n"
+fi
