@@ -10,33 +10,6 @@ count=0
 playerOneCount=0
 playerTwoCount=0
 
-function ladderPlayAgain()
-{
-      diceRoll=$(( 1 + RANDOM % 6 ))
-      (( count++ ))
-      echo "The number obtained is $diceRoll"
-      option=$(( RANDOM % 3 ))
-      case "$option" in
-         1)
-            echo "No play, your postion is $position"
-            position=$position
-            ;;
-         2)
-            echo "Congrats You got a ladder! now move by $diceRoll forword"
-            position=$(( $position + $diceRoll ))
-            ;;
-
-         *)
-            echo "Ohh! you got a snake now move by $diceRoll backword"
-            position=$(( $position + $diceRoll ))
-            if [ $position -le $INITIAL_POSITION ]
-            then
-               position=0
-            fi
-            ;;
-      esac
-}
-
 function playingOption()
 {
 	echo "Position = $position"
@@ -54,7 +27,7 @@ function playingOption()
 			2)
 				echo "Congrats You got a ladder! now move by $diceRoll forword"
 				position=$(( $position + $diceRoll ))
-				#ladderPlayAgain
+				playingOption																		# Get one more turn in case of ladder
 				;;
 
  			*)
