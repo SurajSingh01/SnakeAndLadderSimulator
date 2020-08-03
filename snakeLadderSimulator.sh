@@ -7,15 +7,19 @@ INITIAL_POSITION=0
 END_POSITION=100
 position=0
 count=0
+playerOneCount=0
+playerTwoCount=0
 END_POSITION=100
 MAX_DICEROLL_VALUE=6
 diceRollPosition=$(( $END_POSITION - $MAX_DICEROLL_VALUE ))
 
 function playingOption()
 {
+	echo "Position = $position"
 	if [ $position -lt $diceRollPosition ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
+		(( count++ ))
 		option=$(( RANDOM % 3 ))
 		case "$option" in
 			1)
@@ -40,6 +44,7 @@ function playingOption()
 	elif [ $position -ge $diceRollPosition -a $position -le $END_POSITION ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
+		(( count++ ))
 		if [ $(( $diceroll + $position )) -eq $END_POSITION ]
 		then
 			echo "You won the Game"
@@ -63,7 +68,36 @@ while (( $position <= $END_POSITION ))
 do
 	if [ $position -eq $END_POSITION ]
 	then
+		position=0
+		count=0
 		break
 	fi
 	playingOption
+	playerOneCount=$count
 done
+
+#For PLayer Two
+
+while (( $position <= $END_POSITION ))
+do
+	if [ $position -eq $END_POSITION ]
+   then
+      position=0
+      count=0
+      break
+   fi
+	playingOption
+	playerTwoCount=$count
+done
+echo "--------------------------------------------"
+echo "It took player one $playerOneCount dice roll to win the game"
+echo "--------------------------------------------"
+echo "It took player two $playerTwoCount dice roll to win the game "
+echo "--------------------------------------------"
+
+if [ $playerOneCount -lt $playerTwoCount ]
+then
+	printf "\nPlayer One Won the Game\n"
+else
+	printf "\nPlayer Two won the Game\n"
+fi
