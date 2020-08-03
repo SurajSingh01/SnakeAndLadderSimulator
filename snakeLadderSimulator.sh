@@ -7,6 +7,7 @@ INITIAL_POSITION=0
 END_POSITION=100
 position=0
 count=0
+END_POSITION=100
 MAX_DICEROLL_VALUE=6
 diceRollPosition=$(( $END_POSITION - $MAX_DICEROLL_VALUE ))
 
@@ -34,8 +35,8 @@ function playingOption()
 					position=0
 				fi
 				;;
-		esac
- #if the position is less than 100 but greater than 94 than this condition will work
+ 		esac
+   #if the position is less than 100 but greater than 94 than this condition will work
 	elif [ $position -ge $diceRollPosition -a $position -le $END_POSITION ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
