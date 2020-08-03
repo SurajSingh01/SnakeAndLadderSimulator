@@ -7,10 +7,13 @@ position=0
 INITIAL_POSITION=0
 END_POSITION=100
 count=0
+END_POSITION=100
+MAX_DICEROLL_VALUE=6
+diceRollPosition=$(( $END_POSITION - $MAX_DICEROLL_VALUE ))
 
 function playingOption()
 {
-	if [ $position -lt 94 ]
+	if [ $position -lt $diceRollPosition ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
 		(( count++ ))
@@ -28,14 +31,14 @@ function playingOption()
 
  			*)
 				echo "Ohh! you got a snake now move by $diceRoll backword"
-				position=$(( $position + $diceRoll ))
+				position=$(( $position - $diceRoll ))
 				if [ $position -le $INITIAL_POSITION ]
 				then
 					position=0
 				fi
 				;;
 		esac
-	elif [ $position -ge 94 -a $position -le $END_POSITION ]
+	elif [ $position -ge $diceRollPosition -a $position -le $END_POSITION ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
 		(( count++ ))
