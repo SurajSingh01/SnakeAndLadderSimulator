@@ -6,14 +6,14 @@ echo "Welcome to snake Ladder Simulator"
 position=0
 INITIAL_POSITION=0
 END_POSITION=100
-
+MAX_DICEROLL_VALUE=6
+diceRollPosition=$(( $END_POSITION - $MAX_DICEROLL_VALUE ))
 
 function playingOption()
 {
-	if [ $position -lt 94 ]
+	if [ $position -lt $diceRollPosition ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
-		#echo "The number obtained is $diceRoll"
 		option=$(( RANDOM % 3 ))
 		case "$option" in
 			1)
@@ -27,17 +27,17 @@ function playingOption()
 
  			*)
 				echo "Ohh! you got a snake now move by $diceRoll backword"
-				position=$(( $position + $diceRoll ))
+				position=$(( $position - $diceRoll ))
 				if [ $position -le $INITIAL_POSITION ]
 				then
 					position=0
 				fi
 				;;
 		esac
-	elif [ $position -ge 94 -a $position -le $END_POSITION ]
+ #if the position is less than 100 but greater than 94 than this condition will work
+	elif [ $position -ge $diceRollPosition -a $position -le $END_POSITION ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
-		#echo "The die rolled to a $diceRoll, move forward by $diceRoll"
 		if [ $(( $diceroll + $position )) -eq $END_POSITION ]
 		then
 			echo "You won the Game"
