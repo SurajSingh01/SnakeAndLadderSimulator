@@ -9,11 +9,14 @@ position=0
 count=0
 playerOneCount=0
 playerTwoCount=0
+END_POSITION=100
+MAX_DICEROLL_VALUE=6
+diceRollPosition=$(( $END_POSITION - $MAX_DICEROLL_VALUE ))
 
 function playingOption()
 {
 	echo "Position = $position"
-	if [ $position -lt 94 ]
+	if [ $position -lt $diceRollPosition ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
 		(( count++ ))
@@ -39,7 +42,7 @@ function playingOption()
 				fi
 				;;
 		esac
-	elif [ $position -ge 94 -a $position -le $END_POSITION ]
+	elif [ $position -ge $diceRollPosition -a $position -le $END_POSITION ]
 	then
 		diceRoll=$(( 1 + RANDOM % 6 ))
 		(( count++ ))
